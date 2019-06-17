@@ -9,7 +9,9 @@ import org.base.ReaderResult;
 import org.impl.MyExcelReader;
 import org.interfaces.IExcelReader;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,8 +56,15 @@ public class ExcelReaderUtil {
 
         // 导出失败记录
 
-        String toPath = "C:\\Users\\botao\\Desktop\\测试错误导出.xlsx";
+        String toPath = "C:\\Users\\botao\\Desktop\\export\\测试错误导出.xlsx";
 
+        File file = new File(toPath);
+        if (!file.getParentFile().exists()) {
+            boolean boo = file.getParentFile().mkdirs();
+            if (!boo) {
+                throw new IOException("无法创建导出文件夹！");
+            }
+        }
         // keep 100 rows in memory, exceeding rows will be flush ed to disk
         SXSSFWorkbook wb = new SXSSFWorkbook(100);
         Sheet sh = wb.createSheet();
