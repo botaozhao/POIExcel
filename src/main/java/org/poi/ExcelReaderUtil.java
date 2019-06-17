@@ -6,7 +6,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.base.ReaderConstant;
 import org.base.ReaderResult;
-import org.impl.ExcelReader;
+import org.impl.MyExcelReader;
 import org.interfaces.IExcelReader;
 
 import java.io.FileOutputStream;
@@ -82,7 +82,7 @@ public class ExcelReaderUtil {
 
     public static void main(String[] args) throws Exception {
         String path = "C:\\Users\\botao\\Desktop\\测试导入1.xlsx";
-        IExcelReader rowReader = new ExcelReader();
+        IExcelReader rowReader = new MyExcelReader();
         ExcelReaderUtil.readExcel(rowReader, path);
     }
 }
