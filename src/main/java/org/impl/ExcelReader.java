@@ -24,11 +24,11 @@ public class ExcelReader implements IExcelReader {
         System.out.println("\t" + result);
 
         Map<Object, Object> dafTree = (Map<Object, Object>) parameters.get("dafTree");
-        if (cellList.get(0).charAt(0) == '0') {
 
+        // 数据处理，模拟数据重复验重以及其他异常导致的导入失败
+        if (cellList.get(0).charAt(0) == '0') {
             dafTree.put(cellList.get(0), "123");
             return new ReaderResult(false, "数据重复");
-
         }
         if (cellList.get(0).charAt(0) == '1') {
             return new ReaderResult(false, "其他异常");
