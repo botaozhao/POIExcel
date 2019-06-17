@@ -1,5 +1,6 @@
 package org.impl;
 
+import org.base.ReaderEnum;
 import org.base.ReaderResult;
 import org.interfaces.IExcelReader;
 
@@ -40,12 +41,12 @@ public class MyExcelReader implements IExcelReader {
             dafTree.put(cellList.get(0), "123");
             result = false;
             System.out.println("\t" + result);
-            return new ReaderResult(result, "数据重复");
+            return new ReaderResult(ReaderEnum.REPEAT);
         }
         if (cellList.get(0).charAt(0) == '1') {
             result = false;
             System.out.println("\t" + result);
-            return new ReaderResult(result, "其他异常");
+            return new ReaderResult(ReaderEnum.OTHER);
         }
 
         System.out.println("\t" + result);

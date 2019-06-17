@@ -18,6 +18,10 @@ public class ReaderResult {
      */
     private List<String> cellList;
     /**
+     * code
+     */
+    private String code;
+    /**
      * 备注
      */
     private String node;
@@ -27,11 +31,14 @@ public class ReaderResult {
 
     public ReaderResult(boolean isSuccess) {
         this.isSuccess = isSuccess;
+        this.node = ReaderEnum.SUCCESS.getMsg();
+        this.code = ReaderEnum.SUCCESS.getCode();
     }
 
-    public ReaderResult(boolean isSuccess, String node) {
-        this.isSuccess = isSuccess;
-        this.node = node;
+    public ReaderResult(ReaderEnum readerEnum) {
+        this.isSuccess = false;
+        this.node = readerEnum.getMsg();
+        this.code = readerEnum.getCode();
     }
 
     public boolean isSuccess() {
@@ -58,4 +65,11 @@ public class ReaderResult {
         this.node = node;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }

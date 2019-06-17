@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.base.ReaderConstant;
+import org.base.ReaderEnum;
 import org.base.ReaderResult;
 import org.impl.MyExcelReader;
 import org.interfaces.IExcelReader;
@@ -49,13 +50,10 @@ public class ExcelReaderUtil {
         } else {
             throw new Exception("文件格式错误，fileName的扩展名只能是xls或xlsx。");
         }
-        System.out.println("发送的总行数：" + result.get(ReaderConstant.TOTAL_ROWS));
-        System.out.println("成功的总行数：" + result.get(ReaderConstant.SUCCESS_ROWS));
         List<ReaderResult> readerResult = (List<ReaderResult>) result.get(ReaderConstant.FAIL_INFO);
-        System.out.println("失败的总行数：" + readerResult.size());
 
+        int repeatCount = 0;
         // 导出失败记录
-
         String toPath = "C:\\Users\\botao\\Desktop\\export\\测试错误导出.xlsx";
 
         File file = new File(toPath);
@@ -79,6 +77,10 @@ public class ExcelReaderUtil {
             cell0.setCellValue(readerResult.get(i).getCellList().get(0));
             Cell cell1 = row.createCell(1);
             cell1.setCellValue(readerResult.get(i).getNode());
+            // 记录某种原因导致的错误次数 比如 数据重复
+            if (ReaderEnum.REPEAT.getCode().equals(readerResult.get(i).getCode())) {
+                repeatCount++;
+            }
         }
 
         FileOutputStream out = new FileOutputStream(toPath);
@@ -87,6 +89,11 @@ public class ExcelReaderUtil {
 
         // dispose of temporary files backing this workbook on disk
         wb.dispose();
+
+        System.out.println("发送的总行数：" + result.get(ReaderConstant.TOTAL_ROWS));
+        System.out.println("成功的总行数：" + result.get(ReaderConstant.SUCCESS_ROWS));
+        System.out.println("失败的总行数：" + readerResult.size());
+        System.out.println("重复的总行数：" + repeatCount);
     }
 
     public static void main(String[] args) throws Exception {
