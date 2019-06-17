@@ -12,5 +12,5 @@ import java.util.Map;
  * @date 2019/6/14
  */
 public interface IExcelReader {
-    ReaderResult sendRows(int sheetIndex, String sheetName, int curRow, List<String> cellList, Map<String, Object> other);
+    ReaderResult sendRows(int sheetIndex, String sheetName, int curRow, List<String> cellList, Map<String, Object> parameters);
 }

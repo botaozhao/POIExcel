@@ -35,6 +35,12 @@ public class ExcelXlsReader implements HSSFListener {
         this.excelReader = excelReader;
     }
 
+    Map<String, Object> parameters;
+
+    public void setParameters(Map<String, Object> parameters) {
+        this.parameters = parameters;
+    }
+
     private int minColumns = -1;
 
     private POIFSFileSystem fs;
@@ -348,7 +354,7 @@ public class ExcelXlsReader implements HSSFListener {
 
             //该行不为空 发送数据
             if (flag) {
-                ReaderResult result = this.excelReader.sendRows(sheetIndex, sheetName, curRow + 1, cellList, null);
+                ReaderResult result = this.excelReader.sendRows(sheetIndex, sheetName, curRow + 1, cellList, parameters);
                 if (result.isSuccess()) {
                     successRows++;
                 } else {

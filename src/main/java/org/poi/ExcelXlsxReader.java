@@ -45,6 +45,12 @@ public class ExcelXlsxReader extends DefaultHandler {
 		this.excelReader = excelReader;
 	}
 
+	Map<String, Object> parameters;
+
+	public void setParameters(Map<String, Object> parameters) {
+		this.parameters = parameters;
+	}
+
 	/**
 	 * 单元格中的数据可能的数据类型
 	 */
@@ -329,7 +335,7 @@ public class ExcelXlsxReader extends DefaultHandler {
 
 				//该行不为空行且该行不是第一行，则发送 //每行结束时，调用sendRows()方法
 				if (flag){
-					ReaderResult result = this.excelReader.sendRows(sheetIndex, sheetName, curRow + 1, cellList, null);
+					ReaderResult result = this.excelReader.sendRows(sheetIndex, sheetName, curRow + 1, cellList, parameters);
 					if (result.isSuccess()) {
 						successRows++;
 					}else{

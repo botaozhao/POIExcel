@@ -1,7 +1,7 @@
 package org.base;
 
 /**
- * 导出常量类
+ * 导入常量类
  *
  * @author zhaobotao
  * @date 2019/6/14

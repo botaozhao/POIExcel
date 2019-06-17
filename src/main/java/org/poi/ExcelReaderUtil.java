@@ -10,6 +10,7 @@ import org.impl.ExcelReader;
 import org.interfaces.IExcelReader;
 
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,17 +25,24 @@ public class ExcelReaderUtil {
 
     public static void readExcel(IExcelReader reader, String fileName) throws Exception {
         Map<String, Object> result;
+
+        Map<String, Object> parameters = new HashMap<>();
+        Map<Object, Object> dafTree = new HashMap<>();
+        parameters.put("dafTree", dafTree);
+
         if (fileName.endsWith(ReaderConstant.EXCEL03_EXTENSION)) {
             //处理excel2003文件
             ExcelXlsReader excelXls = new ExcelXlsReader();
             excelXls.setExcelReader(reader);
             excelXls.setRecord(true);
+            excelXls.setParameters(parameters);
             result = excelXls.process(fileName);
         } else if (fileName.endsWith(ReaderConstant.EXCEL07_EXTENSION)) {
             //处理excel2007文件
             ExcelXlsxReader excelXlsxReader = new ExcelXlsxReader();
             excelXlsxReader.setExcelReader(reader);
             excelXlsxReader.setRecord(true);
+            excelXlsxReader.setParameters(parameters);
             result = excelXlsxReader.process(fileName);
         } else {
             throw new Exception("文件格式错误，fileName的扩展名只能是xls或xlsx。");
@@ -76,6 +84,5 @@ public class ExcelReaderUtil {
         String path = "C:\\Users\\botao\\Desktop\\测试导入1.xlsx";
         IExcelReader rowReader = new ExcelReader();
         ExcelReaderUtil.readExcel(rowReader, path);
-
     }
 }
